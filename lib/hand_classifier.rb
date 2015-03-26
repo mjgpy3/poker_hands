@@ -48,6 +48,7 @@ class HandClassifier
   def straight?
     sorted = @hand.map(&:to_i).sort
 
+    # TOOD: Constantize
     sorted == [2, 3, 4, 5, 14] ||
       sorted == Array(sorted.first..sorted.last)
   end
