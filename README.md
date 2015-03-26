@@ -28,7 +28,7 @@ gem install poker_hands-0.0.1.gem
 ### Run tests
 In the app's root, run
 ```
-rspec
+rspec -f d
 ```
 
 ### Manually try the gem
