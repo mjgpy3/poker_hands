@@ -4,9 +4,10 @@ Built in Ruby 1.9.3
 
 The code is generally written in Object Oriented style, with a focus on immutability.
 
-# Todo:
+# TODO:
 
  - Fix "suite" typo
+ - Make spec requires consistent with lib files
 
 ## Installing/running:
 Ensure you have bundler installed
