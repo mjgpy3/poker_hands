@@ -22,7 +22,7 @@ class HandParser
 
   def parse
     @to_parse.
-      split(' ').
+      split(' ').   # TODO: Word boundary regex
       map { |v| card_from(v) }
   end
 
@@ -32,6 +32,7 @@ class HandParser
     Card.new(value_of(raw_card), suite_of(raw_card))
   end
 
+  # TODO: Case-insensitive for following methods
   def suite_of(raw_card)
     SUITES[raw_card[-1]]
   end
