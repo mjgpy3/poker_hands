@@ -21,4 +21,24 @@ describe Card do
       it { is_expected.to eq('10 of Clubs') }
     end
   end
+
+  describe '#to_i' do
+    subject { card.to_i }
+
+    {
+      :ace => 14,
+      2 => 2,
+      10 => 10,
+      :jack => 11,
+      :queen => 12,
+      :king => 13,
+    }.each do |initialized_value, expected_value|
+      describe "when initialized with #{initialized_value}" do
+        let(:value) { initialized_value }
+        let(:suite) { :clubs }
+
+        it { is_expected.to eq(expected_value) }
+      end
+    end
+  end
 end

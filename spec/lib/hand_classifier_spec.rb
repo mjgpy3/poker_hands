@@ -8,6 +8,7 @@ require './lib/classification/three_of_a_kind.rb'
 require './lib/classification/four_of_a_kind.rb'
 require './lib/classification/flush.rb'
 require './lib/classification/full_house.rb'
+require './lib/classification/straight.rb'
 
 describe HandClassifier do
   let(:classifier) { HandClassifier.new(to_classify) }
@@ -86,6 +87,42 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::FullHouse) }
+    end
+
+    describe 'when provided a hand with a numeric straight' do
+      let(:to_classify) { [
+        Card.new(2, :spades),
+        Card.new(3, :clubs),
+        Card.new(4, :diamonds),
+        Card.new(5, :spades),
+        Card.new(6, :clubs),
+      ] }
+
+      it { is_expected.to be_a(Classification::Straight) }
+    end
+
+    describe 'when provided a hand with a straight ending in ace' do
+      let(:to_classify) { [
+        Card.new(10, :spades),
+        Card.new(:jack, :clubs),
+        Card.new(:queen, :diamonds),
+        Card.new(:king, :spades),
+        Card.new(:ace, :clubs),
+      ] }
+
+      it { is_expected.to be_a(Classification::Straight) }
+    end
+
+    describe 'when provided a hand with a straight beginning in ace' do
+      let(:to_classify) { [
+        Card.new(:ace, :spades),
+        Card.new(2, :clubs),
+        Card.new(3, :diamonds),
+        Card.new(4, :spades),
+        Card.new(5, :clubs),
+      ] }
+
+      it { is_expected.to be_a(Classification::Straight) }
     end
   end
 end
