@@ -40,6 +40,7 @@ class HandClassifier
   private
 
   def flush?
+    # TODO: In general prefer `count`
     @hand.group_by(&:suite).size == 1
   end
 
