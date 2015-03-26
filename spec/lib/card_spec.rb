@@ -7,14 +7,14 @@ describe Card do
   describe '#to_s' do
     subject { card.to_s }
 
-    describe 'when the card was initialized with :ace and :spades' do
+    context 'when the card was initialized with :ace and :spades' do
       let(:value) { :ace }
       let(:suit) { :spades }
 
       it { is_expected.to eq('Ace of Spades') }
     end
 
-    describe 'when the card was initialized with 10 and :clubs' do
+    context 'when the card was initialized with 10 and :clubs' do
       let(:value) { 10 }
       let(:suit) { :clubs }
 
@@ -33,7 +33,7 @@ describe Card do
       :queen => 12,
       :king => 13,
     }.each do |initialized_value, expected_value|
-      describe "when initialized with #{initialized_value}" do
+      context "when initialized with #{initialized_value}" do
         let(:value) { initialized_value }
         let(:suit) { :clubs }
 

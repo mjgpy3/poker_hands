@@ -17,7 +17,7 @@ describe HandClassifier do
   describe '#classify' do
     subject(:classified) { classifier.classify }
 
-    describe 'when provided a hand with a high card (ace of diamonds)' do
+    context 'when provided a hand with a high card (ace of diamonds)' do
       let(:to_classify) { [
         Card.new(5, :clubs),
         Card.new(:ace, :diamonds),
@@ -35,7 +35,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a pair' do
+    context 'when provided a hand with a pair' do
       let(:to_classify) { [
         Card.new(5, :clubs),
         Card.new(:ace, :diamonds),
@@ -53,7 +53,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with two pairs' do
+    context 'when provided a hand with two pairs' do
       let(:to_classify) { [
         Card.new(5, :clubs),
         Card.new(:ace, :diamonds),
@@ -72,7 +72,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with three of a kind' do
+    context 'when provided a hand with three of a kind' do
       let(:to_classify) { [
         Card.new(5, :clubs),
         Card.new(5, :diamonds),
@@ -91,7 +91,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with four of a kind' do
+    context 'when provided a hand with four of a kind' do
       let(:to_classify) { [
         Card.new(5, :clubs),
         Card.new(5, :diamonds),
@@ -110,7 +110,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a flush' do
+    context 'when provided a hand with a flush' do
       let(:to_classify) { [
         Card.new(2, :spades),
         Card.new(4, :spades),
@@ -128,7 +128,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a full house' do
+    context 'when provided a hand with a full house' do
       let(:to_classify) { [
         Card.new(:ace, :spades),
         Card.new(:ace, :clubs),
@@ -146,7 +146,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a numeric straight' do
+    context 'when provided a hand with a numeric straight' do
       let(:to_classify) { [
         Card.new(2, :spades),
         Card.new(3, :clubs),
@@ -164,7 +164,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a straight ending in ace' do
+    context 'when provided a hand with a straight ending in ace' do
       let(:to_classify) { [
         Card.new(10, :spades),
         Card.new(:jack, :clubs),
@@ -182,7 +182,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a straight beginning in ace' do
+    context 'when provided a hand with a straight beginning in ace' do
       let(:to_classify) { [
         Card.new(:ace, :spades),
         Card.new(2, :clubs),
@@ -200,7 +200,7 @@ describe HandClassifier do
       end
     end
 
-    describe 'when provided a hand with a straight flush' do
+    context 'when provided a hand with a straight flush' do
       let(:to_classify) { [
         Card.new(:ace, :spades),
         Card.new(2, :spades),

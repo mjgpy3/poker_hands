@@ -8,16 +8,16 @@ describe HandParser do
   describe '#parse' do
     subject(:parsed) { card_parser.parse }
 
-    describe 'given an empty string' do
+    context 'when given an empty string' do
       let(:hand) { '' }
 
       it { is_expected.to eq([]) }
     end
 
-    describe 'given a string containing a single card (the ace of hearts)' do
+    context 'when given a string containing a single card (the ace of hearts)' do
       let(:hand) { 'Ah' }
 
-      describe '.size' do
+      describe '#size' do
         subject { parsed.size }
 
         it { is_expected.to be(1) }
@@ -42,10 +42,10 @@ describe HandParser do
       end
     end
 
-    describe 'given a string with two cards (the second is the 10 of clubs)' do
+    context 'when given a string with two cards (the second is the 10 of clubs)' do
       let(:hand) { '7d 10c' }
 
-      describe '.size' do
+      describe '#size' do
         subject { parsed.size }
 
         it { is_expected.to be(2) }
@@ -70,27 +70,27 @@ describe HandParser do
       end
     end
 
-    describe 'given a string with five cards' do
+    context 'when given a string with five cards' do
       let(:hand) { 'Ah As 10c 7d 6s' }
 
-      describe '.size' do
+      describe '#size' do
         subject { parsed.size }
 
         it { is_expected.to be(5) }
       end
     end
 
-    describe 'given a string with five cards and irregular spacing' do
+    context 'when given a string with five cards and irregular spacing' do
       let(:hand) { "  Ah    As 10c\t7d    6s" }
 
-      describe '.size' do
+      describe '#size' do
         subject { parsed.size }
 
         it { is_expected.to be(5) }
       end
     end
 
-    describe 'given a string a card that has different casing (aH)' do
+    context 'when given a string a card that has different casing (aH)' do
       let(:hand) { 'aH' }
 
 
@@ -110,7 +110,7 @@ describe HandParser do
         end
       end
 
-      describe '.size' do
+      describe '#size' do
         subject { parsed.size }
 
         it { is_expected.to be(1) }
