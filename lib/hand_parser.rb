@@ -10,10 +10,10 @@ class HandParser
   }.freeze
 
   SUITES = {
-    'h' => :hearts,
-    'c' => :clubs,
-    'd' => :diamonds,
-    's' => :spades
+    'H' => :hearts,
+    'C' => :clubs,
+    'D' => :diamonds,
+    'S' => :spades
   }.freeze
 
   def initialize(to_parse)
@@ -22,7 +22,7 @@ class HandParser
 
   def parse
     @to_parse.
-      split(' ').   # TODO: Word boundary regex
+      split.
       map { |v| card_from(v) }
   end
 
@@ -32,13 +32,12 @@ class HandParser
     Card.new(value_of(raw_card), suite_of(raw_card))
   end
 
-  # TODO: Case-insensitive for following methods
   def suite_of(raw_card)
-    SUITES[raw_card[-1]]
+    SUITES[raw_card[-1].upcase]
   end
 
   def value_of(raw_card)
-    value_portion = raw_card[0..-2]
+    value_portion = raw_card[0..-2].upcase
 
     if NON_NUMERIC_VALUES.key?(value_portion)
       NON_NUMERIC_VALUES[value_portion]

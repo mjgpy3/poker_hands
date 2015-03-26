@@ -79,5 +79,42 @@ describe HandParser do
         it { is_expected.to be(5) }
       end
     end
+
+    describe 'given a string with five cards and irregular spacing' do
+      let(:hand) { "  Ah    As 10c\t7d    6s" }
+
+      describe '.size' do
+        subject { parsed.size }
+
+        it { is_expected.to be(5) }
+      end
+    end
+
+    describe 'given a string a card that has different casing (aH)' do
+      let(:hand) { 'aH' }
+
+
+      describe '#first' do
+        let(:first) { parsed.first }
+
+        describe '#suite' do
+          subject { first.suite }
+
+          it { is_expected.to be(:hearts) }
+        end
+
+        describe '#value' do
+          subject { first.value }
+
+          it { is_expected.to be(:ace) }
+        end
+      end
+
+      describe '.size' do
+        subject { parsed.size }
+
+        it { is_expected.to be(1) }
+      end
+    end
   end
 end
