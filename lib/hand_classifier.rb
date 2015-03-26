@@ -9,6 +9,7 @@ require 'classification/three_of_a_kind.rb'
 require 'classification/two_pair.rb'
 
 class HandClassifier
+  ACE_FIRST_STRAIGHT_VALUES = [2, 3, 4, 5, 14].freeze
 
   def initialize(to_classify)
     @hand = to_classify
@@ -17,17 +18,16 @@ class HandClassifier
   def classify
     if straight? && flush?
       Classification::StraightFlush.new(@hand)
-    # TODO: Generally more explicit names (e.g. `four_of_a_kind`)
-    elsif fours.any?
-      Classification::FourOfAKind.new(fours.first.value)
-    elsif [pairs.count, threes.count] == [1, 1]
-      Classification::FullHouse.new(pairs.first, threes.first)
+    elsif four_of_a_kind.any?
+      Classification::FourOfAKind.new(four_of_a_kind.first.value)
+    elsif [pairs.count, three_of_a_kind.count] == [1, 1]
+      Classification::FullHouse.new(pairs.first, three_of_a_kind.first)
     elsif flush?
       Classification::Flush.new(@hand.first.suite)
     elsif straight?
       Classification::Straight.new(@hand)
-    elsif threes.any?
-      Classification::ThreeOfAKind.new(threes.first)
+    elsif three_of_a_kind.any?
+      Classification::ThreeOfAKind.new(three_of_a_kind.first)
     elsif pairs.count == 2
       Classification::TwoPair.new(pairs)
     elsif pairs.count == 1
@@ -40,29 +40,26 @@ class HandClassifier
   private
 
   def flush?
-    # TODO: In general prefer `count`
-    # TODO: Use a set here
-    @hand.group_by(&:suite).size == 1
+    Set.new(@hand.map(&:suite)).count == 1
   end
 
   def straight?
     sorted = @hand.map(&:to_i).sort
 
-    # TOOD: Constantize
-    sorted == [2, 3, 4, 5, 14] ||
+    sorted == ACE_FIRST_STRAIGHT_VALUES ||
       sorted == Array(sorted.first..sorted.last)
   end
 
   def pairs
-    values_grouped_where { |cards| cards.size == 2 }
+    values_grouped_where { |cards| cards.count == 2 }
   end
 
-  def threes
-    values_grouped_where { |cards| cards.size == 3 }
+  def three_of_a_kind
+    values_grouped_where { |cards| cards.count == 3 }
   end
 
-  def fours
-    Array(values_grouped_where { |cards| cards.size == 4 }.first)
+  def four_of_a_kind
+    Array(values_grouped_where { |cards| cards.count == 4 }.first)
   end
 
   def values_grouped_where
