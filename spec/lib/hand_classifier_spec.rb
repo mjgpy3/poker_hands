@@ -9,6 +9,7 @@ require './lib/classification/four_of_a_kind.rb'
 require './lib/classification/flush.rb'
 require './lib/classification/full_house.rb'
 require './lib/classification/straight.rb'
+require './lib/classification/straight_flush.rb'
 
 describe HandClassifier do
   let(:classifier) { HandClassifier.new(to_classify) }
@@ -123,6 +124,18 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::Straight) }
+    end
+
+    describe 'when provided a hand with a straight flush' do
+      let(:to_classify) { [
+        Card.new(:ace, :spades),
+        Card.new(2, :spades),
+        Card.new(3, :spades),
+        Card.new(4, :spades),
+        Card.new(5, :spades),
+      ] }
+
+      it { is_expected.to be_a(Classification::StraightFlush) }
     end
   end
 end

@@ -9,6 +9,7 @@ class HandClassifier
     p threes
     p fours
 
+    return ::Classification::StraightFlush.new if straight? && flush?
     return ::Classification::FourOfAKind.new if fours.any?
     return ::Classification::FullHouse.new if [pairs.size, threes.size] == [1, 1]
     return ::Classification::Flush.new if flush?
