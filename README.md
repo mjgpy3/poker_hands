@@ -2,6 +2,8 @@
 
 Built in Ruby 1.9.3
 
+The code is generally written in Object Oriented style, with a focus on immutability.
+
 ## Installing/running:
 Ensure you have bundler installed
 ```
