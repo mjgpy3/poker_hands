@@ -17,6 +17,7 @@ class HandClassifier
   def classify
     if straight? && flush?
       Classification::StraightFlush.new(@hand)
+    # TODO: Generally more explicit names (e.g. `four_of_a_kind`)
     elsif fours.any?
       Classification::FourOfAKind.new(fours.first.value)
     elsif [pairs.count, threes.count] == [1, 1]
