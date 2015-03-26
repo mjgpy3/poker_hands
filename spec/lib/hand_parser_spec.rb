@@ -2,8 +2,8 @@ require './spec/spec_helper.rb'
 require './lib/hand_parser.rb'
 require './lib/card.rb'
 
-describe CardParser do
-  let(:card_parser) { CardParser.new(hand) }
+describe HandParser do
+  let(:card_parser) { HandParser.new(hand) }
 
   describe '#parse' do
     subject(:parsed) { card_parser.parse }

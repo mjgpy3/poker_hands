@@ -1,4 +1,6 @@
-class CardParser
+require 'card.rb'
+
+class HandParser
 
   NON_NUMERIC_VALUES = {
     'A' => :ace,

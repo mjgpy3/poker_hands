@@ -1,3 +1,13 @@
+require 'classification/flush.rb'
+require 'classification/four_of_a_kind.rb'
+require 'classification/full_house.rb'
+require 'classification/high_card.rb'
+require 'classification/pair.rb'
+require 'classification/straight_flush.rb'
+require 'classification/straight.rb'
+require 'classification/three_of_a_kind.rb'
+require 'classification/two_pair.rb'
+
 class HandClassifier
 
   def initialize(to_classify)
@@ -5,22 +15,31 @@ class HandClassifier
   end
 
   def classify
-    return ::Classification::StraightFlush.new(@hand) if straight? && flush?
-    return ::Classification::FourOfAKind.new(fours.first.first.value) if fours.any?
-    return ::Classification::FullHouse.new(pairs.first, threes.first) if [pairs.size, threes.size] == [1, 1]
-    return ::Classification::Flush.new(@hand.first.suite) if flush?
-    return ::Classification::Straight.new(@hand) if straight?
-    return ::Classification::ThreeOfAKind.new(threes.first) if threes.any?
-    return ::Classification::TwoPair.new(pairs) if pairs.size == 2
-    return ::Classification::Pair.new(pairs.first) if pairs.size == 1
-
-    ::Classification::HighCard.new(@hand.max_by(&:to_i))
+    if straight? && flush?
+      Classification::StraightFlush.new(@hand)
+    elsif fours.any?
+      Classification::FourOfAKind.new(fours.first.value)
+    elsif [pairs.count, threes.count] == [1, 1]
+      Classification::FullHouse.new(pairs.first, threes.first)
+    elsif flush?
+      Classification::Flush.new(@hand.first.suite)
+    elsif straight?
+      Classification::Straight.new(@hand)
+    elsif threes.any?
+      Classification::ThreeOfAKind.new(threes.first)
+    elsif pairs.count == 2
+      Classification::TwoPair.new(pairs)
+    elsif pairs.count == 1
+      Classification::Pair.new(pairs.first)
+    else
+      Classification::HighCard.new(@hand.max_by(&:to_i))
+    end
   end
 
   private
 
   def flush?
-    @hand.group_by(&:suite).size == 1 
+    @hand.group_by(&:suite).size == 1
   end
 
   def straight?
@@ -39,7 +58,7 @@ class HandClassifier
   end
 
   def fours
-    values_grouped_where { |cards| cards.size == 4 }
+    Array(values_grouped_where { |cards| cards.size == 4 }.first)
   end
 
   def values_grouped_where

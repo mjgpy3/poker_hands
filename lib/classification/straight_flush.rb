@@ -1,3 +1,5 @@
+require 'classification/straight'
+
 module Classification
   class StraightFlush < Straight
     def to_s

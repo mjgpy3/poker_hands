@@ -8,7 +8,10 @@ Gem::Specification.new do |s|
   s.date = '2015-03-25'
   s.summary = 'Classifying poker hands'
   s.description = 'Classifying poker hands'
-  s.files = []
+  s.files = Dir.glob("lib/**/*") +
+    ['poker_hands.gemspec',
+     'README.md',
+     './lib/poker_hands.rb']
   s.add_development_dependency 'rspec'
   s.add_development_dependency 'rubocop'
 end
