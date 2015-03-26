@@ -41,26 +41,27 @@ class HandClassifier
   private
 
   def flush?
-    Set.new(@hand.map(&:suit)).count == 1
+    @flush ||= Set.new(@hand.map(&:suit)).count == 1
   end
 
   def straight?
+    return @straight if @straight
     sorted = @hand.map(&:to_i).sort
 
-    sorted == ACE_FIRST_STRAIGHT_VALUES ||
-      sorted == Array(sorted.first..sorted.last)
+    @straight ||= (sorted == ACE_FIRST_STRAIGHT_VALUES ||
+      sorted == Array(sorted.first..sorted.last))
   end
 
   def pairs
-    values_grouped_where { |cards| cards.count == 2 }
+    @pairs ||= values_grouped_where { |cards| cards.count == 2 }
   end
 
   def three_of_a_kind
-    values_grouped_where { |cards| cards.count == 3 }
+    @threes ||= values_grouped_where { |cards| cards.count == 3 }
   end
 
   def four_of_a_kind
-    Array(values_grouped_where { |cards| cards.count == 4 }.first)
+    @fours ||= Array(values_grouped_where { |cards| cards.count == 4 }.first)
   end
 
   def values_grouped_where
