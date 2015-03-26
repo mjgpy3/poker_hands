@@ -15,9 +15,9 @@ describe HandClassifier do
   let(:classifier) { HandClassifier.new(to_classify) }
 
   describe '#classify' do
-    subject { classifier.classify }
+    subject(:classified) { classifier.classify }
 
-    describe 'when provided a hand with a High Card' do
+    describe 'when provided a hand with a high card (ace of diamonds)' do
       let(:to_classify) { [
         Card.new(5, :clubs),
         Card.new(:ace, :diamonds),
@@ -27,6 +27,12 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::HighCard) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("High Card: Ace of Diamonds") }
+      end
     end
 
     describe 'when provided a hand with a pair' do
@@ -40,6 +46,11 @@ describe HandClassifier do
 
       it { is_expected.to be_a(Classification::Pair) }
 
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Pair: Ace of Diamonds and Ace of Spades") }
+      end
     end
 
     describe 'when provided a hand with two pairs' do
@@ -52,6 +63,13 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::TwoPair) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.
+          to eq("Two Pair: 5 of Clubs and 5 of Spades; Ace of Diamonds and Ace of Spades") }
+      end
     end
 
     describe 'when provided a hand with three of a kind' do
@@ -64,6 +82,32 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::ThreeOfAKind) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.
+         to eq("Three of a Kind: 5 (Clubs, Diamonds, Spades)") }
+      end
+    end
+
+    describe 'when provided a hand with four of a kind' do
+      let(:to_classify) { [
+        Card.new(5, :clubs),
+        Card.new(5, :diamonds),
+        Card.new(5, :spades),
+        Card.new(5, :hearts),
+        Card.new(2, :spades),
+      ] }
+
+      it { is_expected.to be_a(Classification::FourOfAKind) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.
+         to eq("Four of a Kind: 5") }
+      end
     end
 
     describe 'when provided a hand with a flush' do
@@ -76,18 +120,30 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::Flush) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Flush: Spades") }
+      end
     end
 
     describe 'when provided a hand with a full house' do
       let(:to_classify) { [
-        Card.new(2, :spades),
-        Card.new(2, :clubs),
-        Card.new(2, :diamonds),
+        Card.new(:ace, :spades),
+        Card.new(:ace, :clubs),
+        Card.new(:ace, :diamonds),
         Card.new(7, :spades),
         Card.new(7, :clubs),
       ] }
 
       it { is_expected.to be_a(Classification::FullHouse) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Full House: three Aces and two 7s") }
+      end
     end
 
     describe 'when provided a hand with a numeric straight' do
@@ -100,6 +156,12 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::Straight) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Straight: 2 of Spades through 6 of Clubs") }
+      end
     end
 
     describe 'when provided a hand with a straight ending in ace' do
@@ -112,6 +174,12 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::Straight) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Straight: 10 of Spades through Ace of Clubs") }
+      end
     end
 
     describe 'when provided a hand with a straight beginning in ace' do
@@ -124,6 +192,12 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::Straight) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Straight: Ace of Spades through 5 of Clubs") }
+      end
     end
 
     describe 'when provided a hand with a straight flush' do
@@ -136,6 +210,12 @@ describe HandClassifier do
       ] }
 
       it { is_expected.to be_a(Classification::StraightFlush) }
+
+      describe '#to_s' do
+        subject { classified.to_s }
+
+        it { is_expected.to eq("Straight Flush: Ace of Spades through 5 of Spades") }
+      end
     end
   end
 end

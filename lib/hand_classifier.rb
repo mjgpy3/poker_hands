@@ -5,20 +5,16 @@ class HandClassifier
   end
 
   def classify
-    p pairs
-    p threes
-    p fours
+    return ::Classification::StraightFlush.new(@hand) if straight? && flush?
+    return ::Classification::FourOfAKind.new(fours.first.first.value) if fours.any?
+    return ::Classification::FullHouse.new(pairs.first, threes.first) if [pairs.size, threes.size] == [1, 1]
+    return ::Classification::Flush.new(@hand.first.suite) if flush?
+    return ::Classification::Straight.new(@hand) if straight?
+    return ::Classification::ThreeOfAKind.new(threes.first) if threes.any?
+    return ::Classification::TwoPair.new(pairs) if pairs.size == 2
+    return ::Classification::Pair.new(pairs.first) if pairs.size == 1
 
-    return ::Classification::StraightFlush.new if straight? && flush?
-    return ::Classification::FourOfAKind.new if fours.any?
-    return ::Classification::FullHouse.new if [pairs.size, threes.size] == [1, 1]
-    return ::Classification::Flush.new if flush?
-    return ::Classification::Straight.new if straight?
-
-    return ::Classification::ThreeOfAKind.new if threes.any?
-    return ::Classification::TwoPair.new if pairs.size == 2
-    return ::Classification::Pair.new if pairs.size == 1
-    ::Classification::HighCard.new
+    ::Classification::HighCard.new(@hand.max_by(&:to_i))
   end
 
   private

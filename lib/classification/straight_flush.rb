@@ -1,4 +1,7 @@
 module Classification
-  class StraightFlush
+  class StraightFlush < Straight
+    def to_s
+      "Straight Flush: #{through_statement}"
+    end
   end
 end
