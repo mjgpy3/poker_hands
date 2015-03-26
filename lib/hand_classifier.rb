@@ -7,6 +7,7 @@ require 'classification/straight_flush.rb'
 require 'classification/straight.rb'
 require 'classification/three_of_a_kind.rb'
 require 'classification/two_pair.rb'
+require 'set'
 
 class HandClassifier
   ACE_FIRST_STRAIGHT_VALUES = [2, 3, 4, 5, 14].freeze
