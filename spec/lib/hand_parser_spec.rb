@@ -1,5 +1,5 @@
 require './spec/spec_helper.rb'
-require './lib/card_parser.rb'
+require './lib/hand_parser.rb'
 require './lib/card.rb'
 
 describe CardParser do
