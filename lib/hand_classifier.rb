@@ -23,7 +23,7 @@ class HandClassifier
     elsif [pairs.count, three_of_a_kind.count] == [1, 1]
       Classification::FullHouse.new(pairs.first, three_of_a_kind.first)
     elsif flush?
-      Classification::Flush.new(@hand.first.suite)
+      Classification::Flush.new(@hand.first.suit)
     elsif straight?
       Classification::Straight.new(@hand)
     elsif three_of_a_kind.any?
@@ -40,7 +40,7 @@ class HandClassifier
   private
 
   def flush?
-    Set.new(@hand.map(&:suite)).count == 1
+    Set.new(@hand.map(&:suit)).count == 1
   end
 
   def straight?

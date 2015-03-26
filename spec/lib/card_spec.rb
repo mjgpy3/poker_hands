@@ -2,21 +2,21 @@ require './spec/spec_helper.rb'
 require './lib/card.rb'
 
 describe Card do
-  let(:card) { Card.new(value, suite) }
+  let(:card) { Card.new(value, suit) }
 
   describe '#to_s' do
     subject { card.to_s }
 
     describe 'when the card was initialized with :ace and :spades' do
       let(:value) { :ace }
-      let(:suite) { :spades }
+      let(:suit) { :spades }
 
       it { is_expected.to eq('Ace of Spades') }
     end
 
     describe 'when the card was initialized with 10 and :clubs' do
       let(:value) { 10 }
-      let(:suite) { :clubs }
+      let(:suit) { :clubs }
 
       it { is_expected.to eq('10 of Clubs') }
     end
@@ -35,7 +35,7 @@ describe Card do
     }.each do |initialized_value, expected_value|
       describe "when initialized with #{initialized_value}" do
         let(:value) { initialized_value }
-        let(:suite) { :clubs }
+        let(:suit) { :clubs }
 
         it { is_expected.to eq(expected_value) }
       end

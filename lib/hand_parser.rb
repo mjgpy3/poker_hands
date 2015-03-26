@@ -9,7 +9,7 @@ class HandParser
     'K' => :king,
   }.freeze
 
-  SUITES = {
+  SUITS = {
     'H' => :hearts,
     'C' => :clubs,
     'D' => :diamonds,
@@ -29,11 +29,11 @@ class HandParser
   private
 
   def card_from(raw_card)
-    Card.new(value_of(raw_card), suite_of(raw_card))
+    Card.new(value_of(raw_card), suit_of(raw_card))
   end
 
-  def suite_of(raw_card)
-    SUITES[raw_card[-1].upcase]
+  def suit_of(raw_card)
+    SUITS[raw_card[-1].upcase]
   end
 
   def value_of(raw_card)

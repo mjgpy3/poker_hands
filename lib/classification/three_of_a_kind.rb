@@ -6,7 +6,7 @@ module Classification
 
     def to_s
       value = @cards.first.value.to_s.capitalize
-      "Three of a Kind: #{value} (#{suites})"
+      "Three of a Kind: #{value} (#{suits})"
     end
 
     private
@@ -19,8 +19,8 @@ module Classification
         capitalize
     end
 
-    def suites
-      @cards.map { |card| card.suite.to_s.capitalize }.join(', ')
+    def suits
+      @cards.map { |card| card.suit.to_s.capitalize }.join(', ')
     end
   end
 end

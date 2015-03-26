@@ -1,5 +1,5 @@
 class Card
-  attr_reader :value, :suite
+  attr_reader :value, :suit
 
   SPECIAL_VALUES = {
     ace: 14,
@@ -8,12 +8,12 @@ class Card
     king: 13
   }.freeze
 
-  def initialize(value, suite)
-    @value, @suite = value, suite
+  def initialize(value, suit)
+    @value, @suit = value, suit
   end
 
   def to_s
-    "#{value.to_s.capitalize} of #{suite.to_s.capitalize}"
+    "#{value.to_s.capitalize} of #{suit.to_s.capitalize}"
   end
 
   def to_i

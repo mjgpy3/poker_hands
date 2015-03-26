@@ -1,11 +1,11 @@
 module Classification
   class Flush
-    def initialize(suite)
-      @suite = suite
+    def initialize(suit)
+      @suit = suit
     end
 
     def to_s
-      "Flush: #{@suite.to_s.capitalize}"
+      "Flush: #{@suit.to_s.capitalize}"
     end
   end
 end

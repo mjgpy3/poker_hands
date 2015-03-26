@@ -28,8 +28,8 @@ describe HandParser do
 
         it { is_expected.to be_a(Card) }
 
-        describe '#suite' do
-          subject { first.suite }
+        describe '#suit' do
+          subject { first.suit }
 
           it { is_expected.to be(:hearts) }
         end
@@ -56,8 +56,8 @@ describe HandParser do
 
         it { is_expected.to be_a(Card) }
 
-        describe '#suite' do
-          subject { last.suite }
+        describe '#suit' do
+          subject { last.suit }
 
           it { is_expected.to be(:clubs) }
         end
@@ -97,8 +97,8 @@ describe HandParser do
       describe '#first' do
         let(:first) { parsed.first }
 
-        describe '#suite' do
-          subject { first.suite }
+        describe '#suit' do
+          subject { first.suit }
 
           it { is_expected.to be(:hearts) }
         end
