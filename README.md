@@ -22,7 +22,7 @@ gem build poker_hands.gemspec
 
 Install the gem
 ```
-gem install <poker_hands-0.0.1.gem>
+gem install poker_hands-0.0.1.gem
 ```
 
 ### Run tests
