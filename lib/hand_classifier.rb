@@ -45,7 +45,7 @@ class HandClassifier
   end
 
   def straight?
-    return @straight if @straight
+    return @straight unless @straight.nil?
     sorted = @hand.map(&:to_i).sort
 
     @straight ||= (sorted == ACE_FIRST_STRAIGHT_VALUES ||
