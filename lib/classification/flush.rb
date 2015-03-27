@@ -1,11 +1,13 @@
-module Classification
-  class Flush
-    def initialize(suit)
-      @suit = suit
-    end
+module PokerHands
+  module Classification
+    class Flush
+      def initialize(suit)
+        @suit = suit
+      end
 
-    def to_s
-      "Flush: #{@suit.to_s.capitalize}"
+      def to_s
+        "Flush: #{@suit.to_s.capitalize}"
+      end
     end
   end
 end

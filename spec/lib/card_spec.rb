@@ -1,8 +1,8 @@
 require './spec/spec_helper.rb'
 require './lib/card.rb'
 
-describe Card do
-  let(:card) { Card.new(value, suit) }
+describe PokerHands::Card do
+  let(:card) { PokerHands::Card.new(value, suit) }
 
   describe '#to_s' do
     subject { card.to_s }

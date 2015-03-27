@@ -2,8 +2,8 @@ require './spec/spec_helper.rb'
 require './lib/hand_parser.rb'
 require './lib/card.rb'
 
-describe HandParser do
-  let(:card_parser) { HandParser.new(hand) }
+describe PokerHands::HandParser do
+  let(:card_parser) { PokerHands::HandParser.new(hand) }
 
   describe '#parse' do
     subject(:parsed) { card_parser.parse }
@@ -26,7 +26,7 @@ describe HandParser do
       describe '#first' do
         subject(:first) { parsed.first }
 
-        it { is_expected.to be_a(Card) }
+        it { is_expected.to be_a(PokerHands::Card) }
 
         describe '#suit' do
           subject { first.suit }
@@ -54,7 +54,7 @@ describe HandParser do
       describe '#last' do
         subject(:last) { parsed.last }
 
-        it { is_expected.to be_a(Card) }
+        it { is_expected.to be_a(PokerHands::Card) }
 
         describe '#suit' do
           subject { last.suit }

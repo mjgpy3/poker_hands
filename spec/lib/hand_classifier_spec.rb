@@ -11,22 +11,22 @@ require './lib/classification/full_house.rb'
 require './lib/classification/straight.rb'
 require './lib/classification/straight_flush.rb'
 
-describe HandClassifier do
-  let(:classifier) { HandClassifier.new(to_classify) }
+describe PokerHands::HandClassifier do
+  let(:classifier) { PokerHands::HandClassifier.new(to_classify) }
 
   describe '#classify' do
     subject(:classified) { classifier.classify }
 
     context 'when provided a hand with a high card (ace of diamonds)' do
       let(:to_classify) { [
-        Card.new(5, :clubs),
-        Card.new(:ace, :diamonds),
-        Card.new(10, :spades),
-        Card.new(7, :spades),
-        Card.new(2, :spades),
+        PokerHands::Card.new(5, :clubs),
+        PokerHands::Card.new(:ace, :diamonds),
+        PokerHands::Card.new(10, :spades),
+        PokerHands::Card.new(7, :spades),
+        PokerHands::Card.new(2, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::HighCard) }
+      it { is_expected.to be_a(PokerHands::Classification::HighCard) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -37,14 +37,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a pair' do
       let(:to_classify) { [
-        Card.new(5, :clubs),
-        Card.new(:ace, :diamonds),
-        Card.new(:ace, :spades),
-        Card.new(7, :spades),
-        Card.new(2, :spades),
+        PokerHands::Card.new(5, :clubs),
+        PokerHands::Card.new(:ace, :diamonds),
+        PokerHands::Card.new(:ace, :spades),
+        PokerHands::Card.new(7, :spades),
+        PokerHands::Card.new(2, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::Pair) }
+      it { is_expected.to be_a(PokerHands::Classification::Pair) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -55,14 +55,14 @@ describe HandClassifier do
 
     context 'when provided a hand with two pairs' do
       let(:to_classify) { [
-        Card.new(5, :clubs),
-        Card.new(:ace, :diamonds),
-        Card.new(:ace, :spades),
-        Card.new(5, :spades),
-        Card.new(2, :spades),
+        PokerHands::Card.new(5, :clubs),
+        PokerHands::Card.new(:ace, :diamonds),
+        PokerHands::Card.new(:ace, :spades),
+        PokerHands::Card.new(5, :spades),
+        PokerHands::Card.new(2, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::TwoPair) }
+      it { is_expected.to be_a(PokerHands::Classification::TwoPair) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -74,14 +74,14 @@ describe HandClassifier do
 
     context 'when provided a hand with three of a kind' do
       let(:to_classify) { [
-        Card.new(5, :clubs),
-        Card.new(5, :diamonds),
-        Card.new(:ace, :spades),
-        Card.new(5, :spades),
-        Card.new(2, :spades),
+        PokerHands::Card.new(5, :clubs),
+        PokerHands::Card.new(5, :diamonds),
+        PokerHands::Card.new(:ace, :spades),
+        PokerHands::Card.new(5, :spades),
+        PokerHands::Card.new(2, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::ThreeOfAKind) }
+      it { is_expected.to be_a(PokerHands::Classification::ThreeOfAKind) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -93,14 +93,14 @@ describe HandClassifier do
 
     context 'when provided a hand with four of a kind' do
       let(:to_classify) { [
-        Card.new(5, :clubs),
-        Card.new(5, :diamonds),
-        Card.new(5, :spades),
-        Card.new(5, :hearts),
-        Card.new(2, :spades),
+        PokerHands::Card.new(5, :clubs),
+        PokerHands::Card.new(5, :diamonds),
+        PokerHands::Card.new(5, :spades),
+        PokerHands::Card.new(5, :hearts),
+        PokerHands::Card.new(2, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::FourOfAKind) }
+      it { is_expected.to be_a(PokerHands::Classification::FourOfAKind) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -112,14 +112,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a flush' do
       let(:to_classify) { [
-        Card.new(2, :spades),
-        Card.new(4, :spades),
-        Card.new(5, :spades),
-        Card.new(7, :spades),
-        Card.new(9, :spades),
+        PokerHands::Card.new(2, :spades),
+        PokerHands::Card.new(4, :spades),
+        PokerHands::Card.new(5, :spades),
+        PokerHands::Card.new(7, :spades),
+        PokerHands::Card.new(9, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::Flush) }
+      it { is_expected.to be_a(PokerHands::Classification::Flush) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -130,14 +130,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a full house' do
       let(:to_classify) { [
-        Card.new(:ace, :spades),
-        Card.new(:ace, :clubs),
-        Card.new(:ace, :diamonds),
-        Card.new(7, :spades),
-        Card.new(7, :clubs),
+        PokerHands::Card.new(:ace, :spades),
+        PokerHands::Card.new(:ace, :clubs),
+        PokerHands::Card.new(:ace, :diamonds),
+        PokerHands::Card.new(7, :spades),
+        PokerHands::Card.new(7, :clubs),
       ] }
 
-      it { is_expected.to be_a(Classification::FullHouse) }
+      it { is_expected.to be_a(PokerHands::Classification::FullHouse) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -148,14 +148,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a numeric straight' do
       let(:to_classify) { [
-        Card.new(2, :spades),
-        Card.new(3, :clubs),
-        Card.new(4, :diamonds),
-        Card.new(5, :spades),
-        Card.new(6, :clubs),
+        PokerHands::Card.new(2, :spades),
+        PokerHands::Card.new(3, :clubs),
+        PokerHands::Card.new(4, :diamonds),
+        PokerHands::Card.new(5, :spades),
+        PokerHands::Card.new(6, :clubs),
       ] }
 
-      it { is_expected.to be_a(Classification::Straight) }
+      it { is_expected.to be_a(PokerHands::Classification::Straight) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -166,14 +166,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a straight ending in ace' do
       let(:to_classify) { [
-        Card.new(10, :spades),
-        Card.new(:jack, :clubs),
-        Card.new(:queen, :diamonds),
-        Card.new(:king, :spades),
-        Card.new(:ace, :clubs),
+        PokerHands::Card.new(10, :spades),
+        PokerHands::Card.new(:jack, :clubs),
+        PokerHands::Card.new(:queen, :diamonds),
+        PokerHands::Card.new(:king, :spades),
+        PokerHands::Card.new(:ace, :clubs),
       ] }
 
-      it { is_expected.to be_a(Classification::Straight) }
+      it { is_expected.to be_a(PokerHands::Classification::Straight) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -184,14 +184,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a straight beginning in ace' do
       let(:to_classify) { [
-        Card.new(:ace, :spades),
-        Card.new(2, :clubs),
-        Card.new(3, :diamonds),
-        Card.new(4, :spades),
-        Card.new(5, :clubs),
+        PokerHands::Card.new(:ace, :spades),
+        PokerHands::Card.new(2, :clubs),
+        PokerHands::Card.new(3, :diamonds),
+        PokerHands::Card.new(4, :spades),
+        PokerHands::Card.new(5, :clubs),
       ] }
 
-      it { is_expected.to be_a(Classification::Straight) }
+      it { is_expected.to be_a(PokerHands::Classification::Straight) }
 
       describe '#to_s' do
         subject { classified.to_s }
@@ -202,14 +202,14 @@ describe HandClassifier do
 
     context 'when provided a hand with a straight flush' do
       let(:to_classify) { [
-        Card.new(:ace, :spades),
-        Card.new(2, :spades),
-        Card.new(3, :spades),
-        Card.new(4, :spades),
-        Card.new(5, :spades),
+        PokerHands::Card.new(:ace, :spades),
+        PokerHands::Card.new(2, :spades),
+        PokerHands::Card.new(3, :spades),
+        PokerHands::Card.new(4, :spades),
+        PokerHands::Card.new(5, :spades),
       ] }
 
-      it { is_expected.to be_a(Classification::StraightFlush) }
+      it { is_expected.to be_a(PokerHands::Classification::StraightFlush) }
 
       describe '#to_s' do
         subject { classified.to_s }

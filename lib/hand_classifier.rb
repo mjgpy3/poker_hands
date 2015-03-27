@@ -9,65 +9,67 @@ require 'classification/three_of_a_kind.rb'
 require 'classification/two_pair.rb'
 require 'set'
 
-class HandClassifier
-  ACE_FIRST_STRAIGHT_VALUES = [2, 3, 4, 5, 14].freeze
+module PokerHands
+  class HandClassifier
+    ACE_FIRST_STRAIGHT_VALUES = [2, 3, 4, 5, 14].freeze
 
-  def initialize(to_classify)
-    @hand = to_classify
-  end
-
-  def classify
-    if straight? && flush?
-      Classification::StraightFlush.new(@hand)
-    elsif four_of_a_kind.any?
-      Classification::FourOfAKind.new(four_of_a_kind.first.value)
-    elsif [pairs.count, three_of_a_kind.count] == [1, 1]
-      Classification::FullHouse.new(pairs.first, three_of_a_kind.first)
-    elsif flush?
-      Classification::Flush.new(@hand.first.suit)
-    elsif straight?
-      Classification::Straight.new(@hand)
-    elsif three_of_a_kind.any?
-      Classification::ThreeOfAKind.new(three_of_a_kind.first)
-    elsif pairs.count == 2
-      Classification::TwoPair.new(pairs)
-    elsif pairs.count == 1
-      Classification::Pair.new(pairs.first)
-    else
-      Classification::HighCard.new(@hand.max_by(&:to_i))
+    def initialize(to_classify)
+      @hand = to_classify
     end
-  end
 
-  private
+    def classify
+      if straight? && flush?
+        Classification::StraightFlush.new(@hand)
+      elsif four_of_a_kind.any?
+        Classification::FourOfAKind.new(four_of_a_kind.first.value)
+      elsif [pairs.count, three_of_a_kind.count] == [1, 1]
+        Classification::FullHouse.new(pairs.first, three_of_a_kind.first)
+      elsif flush?
+        Classification::Flush.new(@hand.first.suit)
+      elsif straight?
+        Classification::Straight.new(@hand)
+      elsif three_of_a_kind.any?
+        Classification::ThreeOfAKind.new(three_of_a_kind.first)
+      elsif pairs.count == 2
+        Classification::TwoPair.new(pairs)
+      elsif pairs.count == 1
+        Classification::Pair.new(pairs.first)
+      else
+        Classification::HighCard.new(@hand.max_by(&:to_i))
+      end
+    end
 
-  def flush?
-    @flush ||= Set.new(@hand.map(&:suit)).count == 1
-  end
+    private
 
-  def straight?
-    return @straight unless @straight.nil?
-    sorted = @hand.map(&:to_i).sort
+    def flush?
+      @flush ||= Set.new(@hand.map(&:suit)).count == 1
+    end
 
-    @straight ||= (sorted == ACE_FIRST_STRAIGHT_VALUES ||
-      sorted == Array(sorted.first..sorted.last))
-  end
+    def straight?
+      return @straight unless @straight.nil?
+      sorted = @hand.map(&:to_i).sort
 
-  def pairs
-    @pairs ||= values_grouped_where { |cards| cards.count == 2 }
-  end
+      @straight ||= (sorted == ACE_FIRST_STRAIGHT_VALUES ||
+        sorted == Array(sorted.first..sorted.last))
+    end
 
-  def three_of_a_kind
-    @threes ||= values_grouped_where { |cards| cards.count == 3 }
-  end
+    def pairs
+      @pairs ||= values_grouped_where { |cards| cards.count == 2 }
+    end
 
-  def four_of_a_kind
-    @fours ||= Array(values_grouped_where { |cards| cards.count == 4 }.first)
-  end
+    def three_of_a_kind
+      @threes ||= values_grouped_where { |cards| cards.count == 3 }
+    end
 
-  def values_grouped_where
-    @hand.
-      group_by(&:value).
-      select { |_, cards| yield(cards) }.
-      values
+    def four_of_a_kind
+      @fours ||= Array(values_grouped_where { |cards| cards.count == 4 }.first)
+    end
+
+    def values_grouped_where
+      @hand.
+        group_by(&:value).
+        select { |_, cards| yield(cards) }.
+        values
+    end
   end
 end
